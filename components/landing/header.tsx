@@ -117,8 +117,8 @@ export function LandingHeader() {
 
         {/* Mobile Menu */}
         <div className={cn(
-          "lg:hidden fixed inset-0 top-[116px] bg-white z-[90] overflow-y-auto transition-all duration-500",
-          mobileMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+          "lg:hidden fixed inset-x-0 top-[100%] h-[calc(100vh-100%)] bg-white z-[90] overflow-y-auto transition-all duration-500 ease-in-out border-t border-border",
+          mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
         )}>
           <div className="flex flex-col p-8 space-y-6 font-bold uppercase tracking-widest text-sm text-black">
             <Link href="/" className="hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>

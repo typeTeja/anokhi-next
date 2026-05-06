@@ -9,7 +9,7 @@ import { LandingFooter } from "@/components/landing/footer"
 
 export default function ContactPage() {
   return (
-    <div className="flex flex-col min-h-screen font-sans selection:bg-[#C08C4C] selection:text-white">
+    <div className="flex flex-col min-h-screen font-sans selection:bg-primary selection:text-white">
       <LandingHeader />
       
       <main className="flex-grow">
@@ -17,8 +17,8 @@ export default function ContactPage() {
         <section className="bg-gray-900 text-white py-24 px-4 text-center relative overflow-hidden">
           <div className="absolute inset-0 opacity-20 bg-[url('/home-page/imgi_49_bg-counter.png')] bg-cover bg-center bg-fixed"></div>
           <div className="relative z-10 max-w-4xl mx-auto space-y-6">
-            <h3 className="text-[#C08C4C] font-semibold uppercase tracking-widest text-sm italic">Get In Touch</h3>
-            <h1 className="text-5xl md:text-6xl font-heading font-bold">Contact Us</h1>
+            <h3 className="text-primary font-semibold uppercase tracking-widest text-sm italic">Get In Touch</h3>
+            <h1 className="text-4xl md:text-6xl font-heading font-bold tracking-tight">Contact Us</h1>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
               Have questions about our projects or want to schedule a site visit? 
               Our team is here to help you find your dream home.
@@ -38,8 +38,8 @@ export default function ContactPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="p-8 bg-gray-50 rounded-2xl space-y-4 border border-gray-100 transition-all hover:border-[#C08C4C]/30 hover:shadow-lg group">
-                  <div className="w-12 h-12 bg-[#C08C4C] rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                <div className="p-8 bg-gray-50 rounded-2xl space-y-4 border border-gray-100 transition-all hover:border-primary/30 hover:shadow-lg group">
+                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
                     <Phone className="size-6" />
                   </div>
                   <h4 className="font-bold text-gray-900 text-lg">Call Us</h4>
@@ -49,8 +49,8 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="p-8 bg-gray-50 rounded-2xl space-y-4 border border-gray-100 transition-all hover:border-[#C08C4C]/30 hover:shadow-lg group">
-                  <div className="w-12 h-12 bg-[#C08C4C] rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                <div className="p-8 bg-gray-50 rounded-2xl space-y-4 border border-gray-100 transition-all hover:border-primary/30 hover:shadow-lg group">
+                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
                     <Mail className="size-6" />
                   </div>
                   <h4 className="font-bold text-gray-900 text-lg">Email Us</h4>
@@ -60,8 +60,8 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="p-8 bg-gray-50 rounded-2xl space-y-4 border border-gray-100 transition-all hover:border-[#C08C4C]/30 hover:shadow-lg group">
-                  <div className="w-12 h-12 bg-[#C08C4C] rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                <div className="p-8 bg-gray-50 rounded-2xl space-y-4 border border-gray-100 transition-all hover:border-primary/30 hover:shadow-lg group">
+                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
                     <MapPin className="size-6" />
                   </div>
                   <h4 className="font-bold text-gray-900 text-lg">Our Office</h4>
@@ -70,8 +70,8 @@ export default function ContactPage() {
                   </p>
                 </div>
 
-                <div className="p-8 bg-gray-50 rounded-2xl space-y-4 border border-gray-100 transition-all hover:border-[#C08C4C]/30 hover:shadow-lg group">
-                  <div className="w-12 h-12 bg-[#C08C4C] rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                <div className="p-8 bg-gray-50 rounded-2xl space-y-4 border border-gray-100 transition-all hover:border-primary/30 hover:shadow-lg group">
+                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
                     <Clock className="size-6" />
                   </div>
                   <h4 className="font-bold text-gray-900 text-lg">Working Hours</h4>
@@ -84,10 +84,10 @@ export default function ContactPage() {
 
             {/* Right: Contact Form */}
             <div className="bg-white p-10 rounded-[2.5rem] shadow-2xl shadow-gray-200/50 border border-gray-50 space-y-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#C08C4C]/5 rounded-bl-full"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full"></div>
               
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-[#C08C4C] font-bold text-xs uppercase tracking-widest">
+                <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest">
                   <MessageSquare className="size-4" /> 
                   <span>Send a message</span>
                 </div>
@@ -98,28 +98,28 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Full Name</label>
-                    <Input placeholder="John Doe" className="bg-gray-50 border-none h-14 rounded-xl px-6 focus-visible:ring-2 focus-visible:ring-[#C08C4C]" />
+                    <Input placeholder="John Doe" className="bg-gray-50 border-none h-14 rounded-xl px-6 focus-visible:ring-2 focus-visible:ring-primary" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Email Address</label>
-                    <Input placeholder="john@example.com" className="bg-gray-50 border-none h-14 rounded-xl px-6 focus-visible:ring-2 focus-visible:ring-[#C08C4C]" />
+                    <Input placeholder="john@example.com" className="bg-gray-50 border-none h-14 rounded-xl px-6 focus-visible:ring-2 focus-visible:ring-primary" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Phone Number</label>
-                    <Input placeholder="+91 00000 00000" className="bg-gray-50 border-none h-14 rounded-xl px-6 focus-visible:ring-2 focus-visible:ring-[#C08C4C]" />
+                    <Input placeholder="+91 00000 00000" className="bg-gray-50 border-none h-14 rounded-xl px-6 focus-visible:ring-2 focus-visible:ring-primary" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Inquiry Type</label>
-                    <Input placeholder="Property Booking" className="bg-gray-50 border-none h-14 rounded-xl px-6 focus-visible:ring-2 focus-visible:ring-[#C08C4C]" />
+                    <Input placeholder="Property Booking" className="bg-gray-50 border-none h-14 rounded-xl px-6 focus-visible:ring-2 focus-visible:ring-primary" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Your Message</label>
-                  <Textarea placeholder="How can we help you?" className="bg-gray-50 border-none min-h-[150px] rounded-xl px-6 py-4 focus-visible:ring-2 focus-visible:ring-[#C08C4C]" />
+                  <Textarea placeholder="How can we help you?" className="bg-gray-50 border-none min-h-[150px] rounded-xl px-6 py-4 focus-visible:ring-2 focus-visible:ring-primary" />
                 </div>
-                <Button className="w-full bg-[#C08C4C] hover:bg-[#A6753B] text-white h-16 rounded-xl font-bold text-lg shadow-xl shadow-[#C08C4C]/20 gap-3 group">
+                <Button className="w-full bg-primary hover:bg-[#A6753B] text-white h-16 rounded-xl font-bold text-lg shadow-xl shadow-primary/20 gap-3 group">
                   Send Message <Send className="size-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </Button>
               </form>

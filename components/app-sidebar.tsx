@@ -21,6 +21,7 @@ import {
   Settings2Icon, 
   CircleHelpIcon,
   ImageIcon,
+  PlusIcon,
 } from "lucide-react"
 
 // This is sample data.

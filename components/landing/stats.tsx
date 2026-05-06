@@ -5,17 +5,17 @@ import { Home, UserCheck, Star } from "lucide-react"
 export function LandingStats() {
   const stats = [
     {
-      icon: <Home className="size-10 text-[#C08C4C]" />,
+      icon: <Home className="size-10 text-primary" />,
       value: "500+",
       label: "Plots / Assets Sold"
     },
     {
-      icon: <UserCheck className="size-10 text-[#C08C4C]" />,
+      icon: <UserCheck className="size-10 text-primary" />,
       value: "13K+",
       label: "Trusted Customers"
     },
     {
-      icon: <Star className="size-10 text-[#C08C4C]" />,
+      icon: <Star className="size-10 text-primary" />,
       value: "10K+",
       label: "Five Star Reviews / Feedback"
     }

@@ -36,7 +36,8 @@ export default function LeadsViewPage() {
           <CardTitle>Inquiry History</CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
-          <Table>
+          <div className="overflow-x-auto">
+            <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent border-primary/10">
                 <TableHead className="font-bold text-primary">Customer Name</TableHead>
@@ -93,7 +94,8 @@ export default function LeadsViewPage() {
               )}
             </TableBody>
           </Table>
-        </CardContent>
+        </div>
+      </CardContent>
       </Card>
     </div>
   )

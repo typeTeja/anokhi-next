@@ -80,7 +80,8 @@ export default function PropertiesManagementPage() {
           <CardTitle>All Projects & Plots</CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
-          <Table>
+          <div className="overflow-x-auto">
+            <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent border-primary/10">
                 <TableHead className="font-bold text-primary">Project Name</TableHead>
@@ -128,7 +129,8 @@ export default function PropertiesManagementPage() {
               )}
             </TableBody>
           </Table>
-        </CardContent>
+        </div>
+      </CardContent>
       </Card>
     </div>
   )

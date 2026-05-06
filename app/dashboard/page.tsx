@@ -33,7 +33,8 @@ export default function DashboardPage() {
             <CardTitle className="text-xl font-heading">Recent Inquiries</CardTitle>
           </CardHeader>
           <CardContent>
-            <Table>
+            <div className="overflow-x-auto">
+              <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Project</TableHead>
@@ -70,7 +71,8 @@ export default function DashboardPage() {
                 )}
               </TableBody>
             </Table>
-          </CardContent>
+          </div>
+        </CardContent>
         </Card>
       </div>
     </div>

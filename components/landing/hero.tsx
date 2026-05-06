@@ -14,12 +14,13 @@ export function LandingHero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl px-4 md:px-20 text-white space-y-6">
-        <h1 className="text-4xl md:text-6xl font-heading font-bold leading-tight">
-          Beyond properties. Built for <br />
-          the life you want.
+      <div className="relative z-10 max-w-4xl px-6 md:px-20 text-white space-y-6">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-black leading-[1.1] tracking-tight">
+          Beyond properties. <br className="hidden sm:block" />
+          Built for the <br className="hidden sm:block" />
+          life you want.
         </h1>
-        <p className="text-lg md:text-xl text-gray-200 max-w-xl">
+        <p className="text-base md:text-xl text-gray-200 max-w-xl leading-relaxed">
           Everything you need to find the perfect home or investment. We build with quality, integrity, and your lifestyle in mind.
         </p>
         <Button className="bg-primary hover:bg-primary/90 text-accent px-10 py-6 rounded-2xl text-lg font-medium  transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95">
