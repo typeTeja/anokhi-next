@@ -12,7 +12,7 @@ import { LandingFooter } from "@/components/landing/footer"
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen font-sans selection:bg-primary selection:text-primary-foreground">
+    <div className="flex flex-col min-h-screen font-sans selection:bg-[#C08C4C] selection:text-white">
       <LandingHeader />
       <main>
         <LandingHero />

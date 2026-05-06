@@ -3,23 +3,25 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 
-function ThemeProvider({
+export function ThemeProvider({
   children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
+}: { children: React.ReactNode }) {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme="light"
       enableSystem
       disableTransitionOnChange
-      {...props}
     >
       <ThemeHotkey />
       {children}
     </NextThemesProvider>
   )
 }
+
+
+
+
 
 function isTypingTarget(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) {
@@ -47,9 +49,10 @@ function ThemeHotkey() {
         return
       }
 
-      if (event.key.toLowerCase() !== "d") {
+      if (!event.key || event.key.toLowerCase() !== "d") {
         return
       }
+
 
       if (isTypingTarget(event.target)) {
         return
@@ -67,5 +70,3 @@ function ThemeHotkey() {
 
   return null
 }
-
-export { ThemeProvider }
