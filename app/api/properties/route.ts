@@ -30,8 +30,7 @@ export async function GET(req: NextRequest) {
           value: propertyHighlights.value,
         })
         .from(propertyHighlights)
-        .where(eq(propertyHighlights.propertyId, prop.id))
-        .limit(4);
+        .where(eq(propertyHighlights.propertyId, prop.id));
         
         return { ...prop, highlights };
       })
