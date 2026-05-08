@@ -10,6 +10,8 @@ import { LandingTestimonials } from "@/components/landing/testimonials"
 import { LandingPartners } from "@/components/landing/partners"
 import { LandingFooter } from "@/components/landing/footer"
 
+export const revalidate = 3600; // Revalidate every hour
+
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen font-sans selection:bg-primary selection:text-primary-foreground">

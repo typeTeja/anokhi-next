@@ -36,7 +36,10 @@ export async function GET(req: NextRequest) {
       })
     );
 
-    return NextResponse.json(allProperties);
+    const response = NextResponse.json(allProperties);
+    // Add caching headers for static generation
+    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    return response;
   } catch (error: unknown) {
     console.error('Error fetching properties:', error);
     const message = error instanceof Error ? error.message : 'Unknown error';

@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ error: "Invalid email or password" }, { status: 401 })
   } catch (error) {
+    console.error('Login error:', error);
     return NextResponse.json({ error: "An error occurred" }, { status: 500 })
   }
 }

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -22,10 +22,17 @@ const DEFAULT_HIGHLIGHTS = [
   { label: 'Price', value: '' },
 ];
 
-export default function PropertyForm() {
+
+interface PropertyFormProps {
+  propertyId?: string;
+}
+
+export default function PropertyForm({ propertyId }: PropertyFormProps) {
   const router = useRouter();
+  const params = useParams();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
+  const [fetchLoading, setFetchLoading] = useState(false);
   const [title, setTitle] = useState('');
   const [city, setCity] = useState('');
   const [area, setArea] = useState('');
@@ -33,6 +40,43 @@ export default function PropertyForm() {
   const [highlights, setHighlights] = useState(DEFAULT_HIGHLIGHTS);
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const id = propertyId || params.id as string;
+
+  const fetchProperty = useCallback(async () => {
+    setFetchLoading(true);
+    try {
+      const response = await fetch(`/api/properties/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setTitle(data.title);
+        setCity(data.city);
+        setArea(data.area || '');
+        setType(data.type || '');
+        if (data.image) {
+          setImagePreview(data.image);
+        }
+        if (data.highlights && data.highlights.length > 0) {
+          setHighlights(data.highlights);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching property:', error);
+    } finally {
+      setFetchLoading(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const loadProperty = async () => {
+      if (id) {
+        setIsEditMode(true);
+        await fetchProperty();
+      }
+    };
+    loadProperty();
+  }, [id, fetchProperty]);
 
   const addHighlight = () => {
     setHighlights([...highlights, { label: '', value: '' }]);
@@ -87,17 +131,20 @@ export default function PropertyForm() {
         formData.append('image', image);
       }
 
-      const response = await fetch('/api/properties', {
-        method: 'POST',
+      const url = isEditMode ? `/api/properties/${id}` : '/api/properties';
+      const method = isEditMode ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create property');
+        throw new Error(`Failed to ${isEditMode ? 'update' : 'create'} property`);
       }
 
-      toast.success('Property created successfully!');
-      router.push('/');
+      toast.success(`Property ${isEditMode ? 'updated' : 'created'} successfully!`);
+      router.push('/dashboard/properties');
       router.refresh();
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Something went wrong';
@@ -107,12 +154,30 @@ export default function PropertyForm() {
     }
   };
 
+  if (fetchLoading) {
+    return (
+      <Card className="w-full max-w-2xl mx-auto shadow-lg border-primary/10">
+        <CardContent className="flex items-center justify-center py-20">
+          <div className="flex items-center gap-2">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            <span>Loading property details...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="w-full max-w-2xl mx-auto shadow-lg border-primary/10">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-heading">Post New Property</CardTitle>
+        <CardTitle className="text-2xl font-heading">
+          {isEditMode ? 'Edit Property' : 'Post New Property'}
+        </CardTitle>
         <CardDescription>
-          Fill in the details below. Images and specific locations help attract more leads.
+          {isEditMode 
+            ? 'Update the property details below. Changes will be saved immediately.'
+            : 'Fill in the details below. Images and specific locations help attract more leads.'
+          }
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
@@ -179,7 +244,7 @@ export default function PropertyForm() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="area">Area</Label>
+              <Label htmlFor="area">Location</Label>
               <Input
                 id="area"
                 placeholder="e.g. Kollur"
@@ -269,11 +334,11 @@ export default function PropertyForm() {
           >
             {loading ? (
               <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Publishing...
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" /> {isEditMode ? 'Updating...' : 'Publishing...'}
               </>
             ) : (
               <>
-                <Save className="w-4 h-4 mr-2" /> Post Project
+                <Save className="w-4 h-4 mr-2" /> {isEditMode ? 'Update Property' : 'Post Project'}
               </>
             )}
           </Button>

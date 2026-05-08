@@ -2,6 +2,7 @@
 
 import { LandingHeader } from "@/components/landing/header"
 import { LandingFooter } from "@/components/landing/footer"
+import Image from "next/image";
 
 export default function GalleryPage() {
   const images = [
@@ -28,7 +29,7 @@ export default function GalleryPage() {
           <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
             {images.map((img, idx) => (
               <div key={idx} className="relative group overflow-hidden rounded-2xl bg-gray-100 break-inside-avoid">
-                <img src={img.src} alt={img.title} className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700" />
+                <Image src={img.src} alt={img.title} className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <h4 className="text-white font-bold text-xl uppercase tracking-widest">{img.title}</h4>
                 </div>

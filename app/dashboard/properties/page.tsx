@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Plus, Eye, Trash2, Loader2 } from "lucide-react"
+import { Plus, Eye, Edit, Trash2, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
 
@@ -23,23 +23,27 @@ export default function PropertiesManagementPage() {
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
-  const fetchProperties = (showLoading = true) => {
+  const fetchProperties = useCallback(async (showLoading = true) => {
     if (showLoading) setLoading(true);
-    fetch('/api/properties')
-      .then(res => res.json())
-      .then(data => {
-        setProperties(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
-  };
+    try {
+      const response = await fetch('/api/properties');
+      if (!response.ok) throw new Error('Failed to fetch properties');
+      const data = await response.json();
+      setProperties(data);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Failed to fetch properties';
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    fetchProperties(false);
-  }, []);
+    const loadProperties = async () => {
+      await fetchProperties(false);
+    };
+    loadProperties();
+  }, [fetchProperties]);
 
   const handleDelete = async (id: number) => {
     if (!window.confirm("Are you sure you want to delete this property? This action cannot be undone.")) return;
@@ -106,6 +110,11 @@ export default function PropertiesManagementPage() {
                         <Button variant="ghost" size="icon" title="View" className="hover:text-primary hover:bg-primary/10">
                           <Eye className="size-4" />
                         </Button>
+                        <Link href={`/dashboard/properties/${prop.id}/edit`}>
+                          <Button variant="ghost" size="icon" title="Edit" className="hover:text-primary hover:bg-primary/10">
+                            <Edit className="size-4" />
+                          </Button>
+                        </Link>
                         <Button 
                           variant="ghost" 
                           size="icon" 

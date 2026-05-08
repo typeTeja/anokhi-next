@@ -55,8 +55,9 @@ export default function LeadModal({ isOpen, onClose, property }: LeadModalProps)
       toast.success('Thank you! Our team will contact you shortly.');
       setFormData({ name: '', email: '', phone: '' });
       onClose();
-    } catch (error: any) {
-      toast.error(error.message || 'Something went wrong');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

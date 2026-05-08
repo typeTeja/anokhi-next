@@ -45,11 +45,6 @@ export function LandingTestimonials() {
   ]
 
   const [currentIndex, setCurrentIndex] = useState(0)
-  const itemsPerPage = {
-    mobile: 1,
-    tablet: 2,
-    desktop: 3
-  }
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % reviews.length)
@@ -130,7 +125,7 @@ export function LandingTestimonials() {
                           <Star key={i} className="size-4 fill-[#FABB05] text-[#FABB05]" />
                         ))}
                       </div>
-                      <p className="text-gray-600 mb-6 italic leading-relaxed">"{review.text}"</p>
+                      <p className="text-gray-600 mb-6 italic leading-relaxed">&ldquo;{review.text}&rdquo;</p>
                     </div>
                     
                     <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-100">

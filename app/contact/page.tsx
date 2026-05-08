@@ -1,11 +1,11 @@
-"use client"
-
 import { Mail, Phone, MapPin, Send, MessageSquare, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { LandingHeader } from "@/components/landing/header"
 import { LandingFooter } from "@/components/landing/footer"
+
+export const revalidate = 3600; // Revalidate every hour
 
 export default function ContactPage() {
   return (
@@ -33,8 +33,8 @@ export default function ContactPage() {
             {/* Left: Contact Details */}
             <div className="space-y-12">
               <div className="space-y-4">
-                <h2 className="text-3xl font-heading font-bold text-gray-900">Let's Talk Business</h2>
-                <p className="text-gray-500">Reach out to us through any of the following channels. We're available 6 days a week.</p>
+                <h2 className="text-3xl font-heading font-bold text-gray-900">Let&apos;s Talk Business</h2>
+                <p className="text-gray-500">Reach out to us through any of the following channels. We&apos;re available 6 days a week.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -1,27 +1,55 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { SectionCards } from "@/components/section-cards"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { db } from '@/lib/db';
+import { properties, leads } from '@/lib/schema';
+import { desc, eq } from 'drizzle-orm';
 
-export default function DashboardPage() {
-  const [stats, setStats] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/api/dashboard/stats')
-      .then(res => res.json())
-      .then(data => {
-        setStats(data);
-        setLoading(false);
+async function getDashboardStats() {
+  try {
+    // Direct database access for static generation
+    const [propertyCount, leadCount, recentLeadsData] = await Promise.all([
+      db.select({ count: properties.id }).from(properties),
+      db.select({ count: leads.id }).from(leads),
+      db.select({
+        id: leads.id,
+        propertyTitle: properties.title,
+        name: leads.name,
+        email: leads.email,
+        phone: leads.phone,
+        created_at: leads.createdAt
       })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
+      .from(leads)
+      .leftJoin(properties, eq(leads.propertyId, properties.id))
+      .orderBy(desc(leads.createdAt))
+      .limit(5)
+    ]);
+
+    const recentLeads = recentLeadsData.map((lead: any) => ({
+      id: lead.id,
+      propertyTitle: lead.propertyTitle || 'Unknown Property',
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      created_at: lead.created_at ? lead.created_at.toISOString() : new Date().toISOString()
+    }));
+
+    return {
+      totalProperties: propertyCount[0]?.count || 0,
+      totalLeads: leadCount[0]?.count || 0,
+      recentLeads
+    };
+  } catch (error: unknown) {
+    console.error('Failed to fetch dashboard stats:', error);
+    return null;
+  }
+}
+
+export const revalidate = 3600; // Revalidate every hour
+
+export default async function DashboardPage() {
+  const stats = await getDashboardStats();
 
   return (
     <div className="flex flex-col gap-4">
@@ -44,8 +72,8 @@ export default function DashboardPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {stats?.recentLeads?.length > 0 ? (
-                  stats.recentLeads.map((lead: any) => (
+                {stats && stats.recentLeads && stats.recentLeads.length > 0 ? (
+                  stats.recentLeads.map((lead: { id: number; propertyTitle: string; name: string; email: string; phone: string; created_at: string }) => (
                     <TableRow key={lead.id}>
                       <TableCell className="font-medium">{lead.propertyTitle}</TableCell>
                       <TableCell>{lead.name}</TableCell>
@@ -65,7 +93,7 @@ export default function DashboardPage() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={4} className="text-center py-10 text-muted-foreground">
-                      {loading ? 'Loading leads...' : 'No inquiries yet.'}
+                      No inquiries yet.
                     </TableCell>
                   </TableRow>
                 )}

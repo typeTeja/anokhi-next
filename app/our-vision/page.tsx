@@ -1,10 +1,10 @@
-"use client"
-
 import { LandingHeader } from "@/components/landing/header"
 import { LandingFooter } from "@/components/landing/footer"
 import { LandingAppointment } from "@/components/landing/appointment"
 import Image from "next/image"
 import { ShieldCheck, ArrowRightLeft, UserCheck, BarChart3, Headphones, Heart, Users, Handshake, Star, TrendingUp } from "lucide-react"
+
+export const revalidate = 3600; // Revalidate every hour
 
 export default function OurVisionPage() {
   return (
@@ -157,16 +157,6 @@ export default function OurVisionPage() {
       </main>
 
       <LandingFooter />
-
-      <style jsx global>{`
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-        .animate-bounce-slow {
-          animation: bounce-slow 4s ease-in-out infinite;
-        }
-      `}</style>
     </div>
   )
 }

@@ -1,6 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
 
 export function LandingHero() {
   return (
@@ -23,9 +25,11 @@ export function LandingHero() {
         <p className="text-base md:text-xl text-gray-200 max-w-xl leading-relaxed">
           Everything you need to find the perfect home or investment. We build with quality, integrity, and your lifestyle in mind.
         </p>
-        <Button className="bg-primary hover:bg-primary/90 text-accent px-10 py-6 rounded-2xl text-lg font-medium  transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95">
-          Get In Touch
-        </Button>
+        <Link href="/contact">
+          <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-2xl text-sm font-bold uppercase tracking-widest transition-all shadow-lg shadow-black/30 hover:scale-[1.05] active:scale-95 h-auto">
+            Get In Touch
+          </Button>
+        </Link>
       </div>
     </section>
   )

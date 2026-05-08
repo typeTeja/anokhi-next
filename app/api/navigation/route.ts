@@ -23,15 +23,16 @@ export async function GET() {
             isNotNull(properties.area)
           )
         );
-      locations[city] = areasResult.map((a: any) => a.area);
+      locations[city] = areasResult.map((a) => a.area).filter((area): area is string => area !== null);
     }
 
     return NextResponse.json({
       locations,
       services: ['Flats', 'Plots', 'Commercial']
     });
-  } catch (error: any) {
-    console.error('Error fetching navigation data:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    console.error('Error fetching navigation:', error);
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

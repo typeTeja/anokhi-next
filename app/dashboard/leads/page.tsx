@@ -1,28 +1,54 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Mail, Phone, ExternalLink } from "lucide-react"
+import { db } from '@/lib/db';
+import { leads, properties } from '@/lib/schema';
+import { desc, eq } from 'drizzle-orm';
 
-export default function LeadsViewPage() {
-  const [leads, setLeads] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+interface Lead {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  propertyTitle: string;
+  created_at: string;
+}
 
-  useEffect(() => {
-    fetch('/api/dashboard/leads')
-      .then(res => res.json())
-      .then(data => {
-        setLeads(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
+async function getAllLeads() {
+  try {
+    // Direct database access for static generation
+    const leadsData = await db.select({
+      id: leads.id,
+      name: leads.name,
+      email: leads.email,
+      phone: leads.phone,
+      created_at: leads.createdAt,
+      propertyTitle: properties.title
+    })
+    .from(leads)
+    .leftJoin(properties, eq(leads.propertyId, properties.id))
+    .orderBy(desc(leads.createdAt));
+
+    return leadsData.map(lead => ({
+      id: lead.id,
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      propertyTitle: lead.propertyTitle || 'Unknown Property',
+      created_at: lead.created_at ? lead.created_at.toISOString() : new Date().toISOString()
+    }));
+  } catch (error: unknown) {
+    console.error('Error fetching leads:', error);
+    return [];
+  }
+}
+
+export const revalidate = 3600; // Revalidate every hour
+
+export default async function LeadsViewPage() {
+  const leads = await getAllLeads();
 
   return (
     <div className="flex flex-col gap-6">
@@ -49,7 +75,7 @@ export default function LeadsViewPage() {
             </TableHeader>
             <TableBody>
               {leads.length > 0 ? (
-                leads.map((lead: any) => (
+                leads.map((lead: Lead) => (
                   <TableRow key={lead.id} className="border-primary/5 hover:bg-primary/5 transition-colors">
                     <TableCell className="font-semibold">{lead.name}</TableCell>
                     <TableCell>
@@ -88,7 +114,7 @@ export default function LeadsViewPage() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="text-center py-20 text-muted-foreground italic">
-                    {loading ? 'Loading leads...' : 'No inquiries found.'}
+                    No inquiries found.
                   </TableCell>
                 </TableRow>
               )}

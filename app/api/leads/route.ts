@@ -19,8 +19,9 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ message: 'Lead saved successfully' }, { status: 201 });
-  } catch (error: any) {
-    console.error('Error saving lead:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    console.error('Error creating lead:', error);
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

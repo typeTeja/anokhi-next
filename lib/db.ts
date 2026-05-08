@@ -11,7 +11,8 @@ if (!dbUrl) {
 export const pool = mysql.createPool(dbUrl);
 export const db = drizzle(pool, { schema, mode: 'default' });
 
-export async function query(sql: string, params?: any[]) {
-  const [rows] = await pool.execute(sql, params);
+export async function query(sql: string, params?: unknown[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [rows] = await pool.execute(sql, params as any);
   return rows;
 }

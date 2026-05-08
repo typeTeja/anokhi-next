@@ -35,8 +35,9 @@ export default function LoginPage() {
       } else {
         toast.error(data.error || "Invalid credentials")
       }
-    } catch (error) {
-      toast.error("An error occurred during login")
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Login failed';
+      toast.error(message);
     } finally {
       setIsLoading(false)
     }

@@ -23,11 +23,14 @@ export async function GET() {
     .orderBy(desc(leads.createdAt))
     .limit(5);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       totalProperties: propertyCount.value,
       totalLeads: leadCount.value,
       recentLeads: recentLeads
     });
+    // Add caching headers for static generation
+    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
+    return response;
   } catch (error: unknown) {
     console.error('Error fetching dashboard stats:', error);
     const message = error instanceof Error ? error.message : 'Unknown error';

@@ -1,6 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
 
 export function LandingAppointment() {
   return (
@@ -22,11 +24,11 @@ export function LandingAppointment() {
         <div className="text-3xl md:text-5xl font-black tracking-tighter pt-4 text-accent">
           +91 99 59 59 2888
         </div>
-        <div className="pt-8">
+        <Link href="/contact">
           <Button className="bg-white hover:bg-white/90 text-black px-10 py-5 rounded-2xl text-sm font-bold uppercase tracking-widest transition-all shadow-2xl shadow-black/40 hover:scale-[1.05] active:scale-95 h-auto">
             Book Now
           </Button>
-        </div>
+        </Link>
       </div>
     </section>
   )

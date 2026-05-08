@@ -33,7 +33,7 @@ export function LandingAbout() {
               Founded with a vision to redefine the real estate experience, Anokhi Homes is committed to delivering excellence through innovation and integrity. We specialize in creating high-quality residential and commercial spaces that harmonize with your lifestyle.
             </p>
             <p>
-              With years of expertise in the industry, we have successfully completed numerous projects, earning the trust of thousands of happy homeowners. Our approach is centered on understanding our clients' needs and exceeding their expectations at every step of the journey.
+              With years of expertise in the industry, we have successfully completed numerous projects, earning the trust of thousands of happy homeowners. Our approach is centered on understanding our clients&apos; needs and exceeding their expectations at every step of the journey.
             </p>
             <p>
               From meticulously planned layouts to premium finishes, every Anokhi project is a masterpiece of design and craftsmanship. We invite you to explore our world and find your perfect space with us.

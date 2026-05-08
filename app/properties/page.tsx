@@ -1,24 +1,35 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import PropertyCard from '@/components/property-card';
 import SearchFilters from '@/components/search-filters';
-import { Plus, Building2, Sparkles } from 'lucide-react';
+import { Building2 } from 'lucide-react';
 import { LandingHeader } from '@/components/landing/header';
 import { LandingFooter } from '@/components/landing/footer';
 
+interface Property {
+  id: number;
+  title: string;
+  city: string;
+  area: string;
+  type: string;
+  image: string | null;
+  highlights: Array<{label: string, value: string}>;
+}
 
-async function getProperties(searchParams: any) {
+async function getProperties(searchParams: Record<string, string>) {
   const query = new URLSearchParams(searchParams).toString();
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/properties?${query}`, {
-    cache: 'no-store',
+    cache: 'force-cache',
+    next: { revalidate: 3600 } // Revalidate every hour
   });
   if (!res.ok) return [];
   return res.json();
 }
 
-export default async function Home({ searchParams }: { searchParams: Promise<any> }) {
+export const revalidate = 3600; // Revalidate every hour
+
+export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const params = await searchParams;
   const properties = await getProperties(params);
 
@@ -45,7 +56,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<any
             <div className="flex flex-col items-center text-center space-y-10">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 border border-white/10 backdrop-blur-md text-sm font-bold text-white animate-in fade-in slide-in-from-top-4 duration-700">
                
-                <span>Anokhi's Premium Real Estate Projects</span>
+                <span>Anokhi&apos;s Premium Real Estate Projects</span>
               </div>
               
               <div className="space-y-4 max-w-4xl">
@@ -87,7 +98,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<any
 
           {properties.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
-              {properties.map((property: any) => (
+              {properties.map((property: Property) => (
                 <PropertyCard key={property.id} property={property} />
               ))}
             </div>
@@ -100,7 +111,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<any
                 </div>
                 <div className="space-y-4 max-w-md mx-auto">
                   <h3 className="text-3xl font-heading font-black text-foreground">No projects matching your criteria</h3>
-                  <p className="text-muted-foreground text-lg">We couldn't find any properties matching your current filters. Try broadening your search.</p>
+                  <p className="text-muted-foreground text-lg">We couldn&apos;t find any properties matching your current filters. Try broadening your search.</p>
                 </div>
                 <Button variant="outline" className="mt-8 border-primary/20 h-14 px-10 rounded-2xl hover:bg-primary hover:text-primary-foreground transition-all font-bold text-lg" asChild>
                   <Link href="/properties">Reset All Filters</Link>
