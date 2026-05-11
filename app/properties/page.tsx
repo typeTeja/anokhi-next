@@ -62,7 +62,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
               <div className="space-y-4 max-w-4xl">
                 <h1 className="text-4xl sm:text-5xl md:text-7xl font-heading font-black tracking-tight leading-[1.1] text-white">
                   Your Journey to a <br className="hidden sm:block" />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">Perfect Home</span> Begins Here
+                  <span className="text-transparent bg-clip-text bg-primary">Perfect Home</span> Begins Here
                 </h1>
                 
                 <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">

@@ -88,7 +88,7 @@ export default function OurVisionPage() {
         <section className="py-24 px-4 md:px-10 bg-gray-50 text-center">
           <div className="max-w-6xl mx-auto space-y-16">
             <div className="space-y-2">
-              <h3 className="text-primary font-semibold uppercase tracking-widest text-sm italic">Our Promises</h3>
+              <h3 className="text-primary font-semibold uppercase tracking-widest text-sm ">Our Promises</h3>
               <h2 className="text-4xl font-heading font-bold text-gray-900 leading-tight">
                 The Anokhi Advantage
               </h2>

@@ -78,7 +78,7 @@ export async function LandingProjects() {
     <section id="projects" className="py-20 px-4 md:px-20 bg-gray-50">
       <div className="max-w-7xl mx-auto space-y-12">
         <div className="text-center space-y-4">
-          <h3 className="text-primary font-semibold uppercase tracking-widest text-sm italic">Best Advice</h3>
+          {/* <h3 className="text-primary font-semibold uppercase tracking-widest text-sm italic">Best Advice</h3> */}
           <h2 className="text-4xl font-heading font-bold text-gray-900 uppercase">
             Our Projects
           </h2>
@@ -103,7 +103,7 @@ export async function LandingProjects() {
         {/* View All Button */}
         <div className="flex justify-center pt-8">
           <Link href="/properties">
-            <Button className="bg-primary hover:bg-primary/90 text-accent px-10 py-6 rounded-2xl text-lg font-medium transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95">
+            <Button className="bg-black hover:bg-primary/90 text-accent px-10 py-6 rounded-2xl text-lg font-medium transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95">
               View All Projects
             </Button>
           </Link>

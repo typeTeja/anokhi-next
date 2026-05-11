@@ -53,7 +53,7 @@ export function LandingProcess() {
     <section id="process" className="py-24 px-4 md:px-20 bg-white text-center">
       <div className="max-w-6xl mx-auto space-y-16">
         <div className="space-y-2">
-          <h3 className="text-primary font-semibold uppercase tracking-widest text-sm italic">Our Process</h3>
+          <h3 className="text-primary font-semibold uppercase tracking- text-md ">Our Process</h3>
           <h2 className="text-4xl font-heading font-bold text-gray-900 leading-tight">
             What We Do?
           </h2>

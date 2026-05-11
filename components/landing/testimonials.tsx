@@ -71,7 +71,7 @@ export function LandingTestimonials() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 text-center space-y-12">
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 text-left">
           <div className="space-y-2">
-            <h3 className="text-primary font-semibold uppercase tracking-widest text-sm italic">Google Reviews</h3>
+            <h3 className="text-primary font-semibold uppercase tracking-widest text-sm ">Google Reviews</h3>
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-white leading-tight">
               Testimonials
             </h2>

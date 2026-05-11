@@ -50,9 +50,9 @@ export function LandingHeader() {
             <Image 
               src="/home-page/logo.png" 
               alt="Anokhi Homes Logo" 
-              width={150} 
-              height={50} 
-              className="h-10 w-auto object-contain"
+              width={120} 
+              height={80} 
+              className="h-18 w-auto object-contain"
             />
           </Link>
 

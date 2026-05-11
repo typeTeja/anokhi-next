@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 import { properties, propertyHighlights } from '@/lib/schema';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
-import { desc, eq, and } from 'drizzle-orm';
+import { desc, eq, and, like } from 'drizzle-orm';
 
 export async function GET(req: NextRequest) {
   try {
@@ -11,11 +11,13 @@ export async function GET(req: NextRequest) {
     const city = searchParams.get('city');
     const area = searchParams.get('area');
     const type = searchParams.get('type');
+    const search = searchParams.get('search');
 
     const filters = [];
     if (city) filters.push(eq(properties.city, city));
     if (area) filters.push(eq(properties.area, area));
     if (type) filters.push(eq(properties.type, type));
+    if (search) filters.push(like(properties.title, `%${search}%`));
 
     const props = await db.select()
       .from(properties)

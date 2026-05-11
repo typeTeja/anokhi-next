@@ -12,7 +12,6 @@ import { Plus, Trash2, Save, Loader2, Image as ImageIcon, X } from 'lucide-react
 import { toast } from 'sonner';
 
 const DEFAULT_HIGHLIGHTS = [
-  { label: 'Location', value: '' },
   { label: 'Total Land Area', value: '' },
   { label: 'No of Units', value: '' },
   { label: 'Plot Sizes', value: '' },
