@@ -40,8 +40,6 @@ export default function RootLayout({
       className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, playfairDisplayHeading.variable)}
     >
       <body suppressHydrationWarning>
-
-     
           <TooltipProvider>{children}</TooltipProvider>
        
       </body>

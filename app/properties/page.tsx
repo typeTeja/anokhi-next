@@ -6,6 +6,8 @@ import SearchFilters from '@/components/search-filters';
 import { Building2 } from 'lucide-react';
 import { LandingHeader } from '@/components/landing/header';
 import { LandingFooter } from '@/components/landing/footer';
+import { db } from '@/lib/db';
+import { properties as propertiesSchema } from '@/lib/schema';
 
 interface Property {
   id: number;
@@ -27,11 +29,21 @@ async function getProperties(searchParams: Record<string, string>) {
   return res.json();
 }
 
+async function getFiltersData() {
+  const allProps = await db.select().from(propertiesSchema);
+  const cities = Array.from(new Set(allProps.map(p => p.city).filter((c): c is string => !!c)));
+  const areas = Array.from(new Set(allProps.map(p => p.area).filter((a): a is string => !!a)));
+  const types = Array.from(new Set(allProps.map(p => p.type).filter((t): t is string => !!t)));
+  
+  return { cities, areas, types };
+}
+
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const params = await searchParams;
   const properties = await getProperties(params);
+  const filterData = await getFiltersData();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -76,7 +88,11 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
         {/* Search & Filters Container */}
         <section className="px-4 pb-12">
-          <SearchFilters />
+          <SearchFilters 
+            initialCities={filterData.cities}
+            initialAreas={filterData.areas}
+            initialTypes={filterData.types}
+          />
         </section>
 
         {/* Listings Section */}

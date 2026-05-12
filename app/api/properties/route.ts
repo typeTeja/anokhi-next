@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
     const type = formData.get('type') as string;
     const highlightsJson = formData.get('highlights') as string;
     const file = formData.get('image') as File | null;
+    const isFeatured = formData.get('isFeatured') === '1' ? 1 : 0;
 
     if (!title || !city) {
       return NextResponse.json({ error: 'Title and city are required' }, { status: 400 });
@@ -84,6 +85,7 @@ export async function POST(req: NextRequest) {
       area,
       type,
       image: imagePath,
+      isFeatured,
     }).$returningId();
 
     const propertyId = result.id;
@@ -105,7 +107,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ id: propertyId, title, city, area, type, image: imagePath }, { status: 201 });
+    return NextResponse.json({ id: propertyId, title, city, area, type, image: imagePath, isFeatured }, { status: 201 });
   } catch (error: unknown) {
     console.error('Error creating property:', error);
     const message = error instanceof Error ? error.message : 'Unknown error';

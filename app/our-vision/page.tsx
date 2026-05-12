@@ -1,17 +1,27 @@
+"use client"
+
 import { LandingHeader } from "@/components/landing/header"
 import { LandingFooter } from "@/components/landing/footer"
 import { LandingAppointment } from "@/components/landing/appointment"
 import Image from "next/image"
 import { ShieldCheck, ArrowRightLeft, UserCheck, BarChart3, Headphones, Heart, Users, Handshake, Star, TrendingUp } from "lucide-react"
-
-export const revalidate = 3600; // Revalidate every hour
+import { useRouter } from "next/navigation"
 
 export default function OurVisionPage() {
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Here you would typically send data to an API
+    router.push('/thank-you');
+  };
+
   return (
     <div className="flex flex-col min-h-screen font-sans selection:bg-primary selection:text-white">
       <LandingHeader />
       
       <main className="flex-grow">
+        {/* ... existing sections ... */}
         {/* Hero Section */}
         <section className="relative h-[400px] flex items-center justify-center text-white overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -143,11 +153,11 @@ export default function OurVisionPage() {
           <div className="max-w-2xl mx-auto space-y-12">
             <h2 className="text-4xl font-heading font-bold text-gray-900">Enquiry Now</h2>
             <div className="bg-gray-50 p-10 rounded-[2.5rem] shadow-inner border border-gray-100">
-              <form className="space-y-4">
-                <input type="text" placeholder="Your Name" className="w-full bg-white border border-gray-200 h-14 rounded-xl px-6 focus:ring-2 focus:ring-primary outline-none" />
-                <input type="email" placeholder="Your Email" className="w-full bg-white border border-gray-200 h-14 rounded-xl px-6 focus:ring-2 focus:ring-primary outline-none" />
-                <textarea placeholder="Your Message" className="w-full bg-white border border-gray-200 min-h-[150px] rounded-xl px-6 py-4 focus:ring-2 focus:ring-primary outline-none" />
-                <button className="w-full bg-primary hover:bg-[#A6753B] text-white h-14 rounded-xl font-bold uppercase tracking-widest transition-all">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input required type="text" placeholder="Your Name" className="w-full bg-white border border-gray-200 h-14 rounded-xl px-6 focus:ring-2 focus:ring-primary outline-none" />
+                <input required type="email" placeholder="Your Email" className="w-full bg-white border border-gray-200 h-14 rounded-xl px-6 focus:ring-2 focus:ring-primary outline-none" />
+                <input required type="tel" placeholder="Phone Number" className="w-full bg-white border border-gray-200 h-14  rounded-xl px-6 py-4 focus:ring-2 focus:ring-primary outline-none" />
+                <button type="submit" className="w-full bg-primary hover:bg-[#A6753B] text-white h-14 rounded-xl font-bold uppercase tracking-widest transition-all">
                   Submit
                 </button>
               </form>

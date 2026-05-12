@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function LandingWhyChoose() {
   const points = [
@@ -37,9 +38,11 @@ export function LandingWhyChoose() {
             ))}
           </div>
 
+          <Link href="/our-vision" >
           <Button className="bg-primary hover:bg-primary/90 text-accent px-10 py-6 rounded-2xl text-sm font-medium transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95">
             Know More
           </Button>
+          </Link>
         </div>
 
         {/* Image Side */}

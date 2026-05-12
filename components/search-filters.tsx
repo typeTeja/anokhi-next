@@ -18,7 +18,17 @@ import {
   LayoutGrid,
 } from 'lucide-react';
 
-export default function SearchFilters() {
+interface SearchFiltersProps {
+  initialCities: string[];
+  initialAreas: string[];
+  initialTypes: string[];
+}
+
+export default function SearchFilters({
+  initialCities = [],
+  initialAreas = [],
+  initialTypes = []
+}: SearchFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -91,10 +101,11 @@ export default function SearchFilters() {
                 <SelectValue placeholder="All Cities" />
               </SelectTrigger>
 
-              <SelectContent>
+              <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-[var(--radix-select-trigger-width)] overflow-y-auto">
                 <SelectItem value="all">All Cities</SelectItem>
-                <SelectItem value="Hyderabad">Hyderabad</SelectItem>
-                <SelectItem value="Bangalore">Bangalore</SelectItem>
+                {initialCities.map(c => (
+                  <SelectItem key={c} value={c}>{c}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -114,11 +125,11 @@ export default function SearchFilters() {
                 <SelectValue placeholder="All Areas" />
               </SelectTrigger>
 
-              <SelectContent>
+              <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-[var(--radix-select-trigger-width)] overflow-y-auto">
                 <SelectItem value="all">All Areas</SelectItem>
-                <SelectItem value="Kollur">Kollur</SelectItem>
-                <SelectItem value="Tukkuguda">Tukkuguda</SelectItem>
-                <SelectItem value="Gachibowli">Gachibowli</SelectItem>
+                {initialAreas.map(a => (
+                  <SelectItem key={a} value={a}>{a}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -138,11 +149,11 @@ export default function SearchFilters() {
                 <SelectValue placeholder="All Types" />
               </SelectTrigger>
 
-              <SelectContent>
+              <SelectContent position="popper" sideOffset={4} className="max-h-[300px]  overflow-y-auto">
                 <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="Flats">Flats</SelectItem>
-                <SelectItem value="Plots">Plots</SelectItem>
-                <SelectItem value="Commercial">Commercial</SelectItem>
+                {initialTypes.map(t => (
+                  <SelectItem key={t} value={t}>{t}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

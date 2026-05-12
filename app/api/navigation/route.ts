@@ -28,7 +28,7 @@ export async function GET() {
 
     return NextResponse.json({
       locations,
-      services: ['Flats', 'Plots', 'Commercial']
+      services: ['Flats', 'Plots']
     });
   } catch (error: unknown) {
     console.error('Error fetching navigation:', error);

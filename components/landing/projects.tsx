@@ -32,6 +32,7 @@ async function getLatestProjects() {
     // Direct database access for static generation
     const props = await db.select()
       .from(properties)
+      .where(eq(properties.isFeatured, 1))
       .orderBy(desc(properties.createdAt))
       .limit(3);
 

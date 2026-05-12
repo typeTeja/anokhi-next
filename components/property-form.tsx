@@ -8,7 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Trash2, Save, Loader2, Image as ImageIcon, X } from 'lucide-react';
+import { Plus, Trash2, Save, Loader2, Image as ImageIcon, X, Star } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 
 const DEFAULT_HIGHLIGHTS = [
@@ -40,6 +41,7 @@ export default function PropertyForm({ propertyId }: PropertyFormProps) {
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isFeatured, setIsFeatured] = useState(false);
 
   const id = propertyId || params.id as string;
 
@@ -56,6 +58,7 @@ export default function PropertyForm({ propertyId }: PropertyFormProps) {
         if (data.image) {
           setImagePreview(data.image);
         }
+        setIsFeatured(data.isFeatured === 1 || data.isFeatured === true);
         if (data.highlights && data.highlights.length > 0) {
           setHighlights(data.highlights);
         }
@@ -129,6 +132,7 @@ export default function PropertyForm({ propertyId }: PropertyFormProps) {
       if (image) {
         formData.append('image', image);
       }
+      formData.append('isFeatured', isFeatured ? '1' : '0');
 
       const url = isEditMode ? `/api/properties/${id}` : '/api/properties';
       const method = isEditMode ? 'PUT' : 'POST';
@@ -265,6 +269,26 @@ export default function PropertyForm({ propertyId }: PropertyFormProps) {
                   <SelectItem value="Commercial">Commercial</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="space-y-2 flex items-center gap-3 pt-6">
+              <Checkbox 
+                id="isFeatured" 
+                checked={isFeatured} 
+                onCheckedChange={(checked) => setIsFeatured(checked === true)}
+                className="w-5 h-5"
+              />
+              <div className="grid gap-1.5 leading-none">
+                <Label
+                  htmlFor="isFeatured"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2 cursor-pointer"
+                >
+                  <Star className={`w-4 h-4 ${isFeatured ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+                  Feature this project
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Featured projects will appear on the home page.
+                </p>
+              </div>
             </div>
           </div>
 

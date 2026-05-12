@@ -8,6 +8,7 @@ export const properties = mysqlTable('properties', {
   area: varchar('area', { length: 100 }),
   type: varchar('type', { length: 50 }),
   image: varchar('image', { length: 255 }),
+  isFeatured: int('is_featured').default(0),
   createdAt: timestamp('created_at').defaultNow(),
 });
 

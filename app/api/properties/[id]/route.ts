@@ -63,6 +63,7 @@ export async function PUT(
     const type = formData.get('type') as string;
     const highlightsJson = formData.get('highlights') as string;
     const file = formData.get('image') as File | null;
+    const isFeatured = formData.get('isFeatured') === '1' ? 1 : 0;
 
     if (!title || !city) {
       return NextResponse.json({ error: 'Title and city are required' }, { status: 400 });
@@ -85,6 +86,7 @@ export async function PUT(
         city,
         area,
         type,
+        isFeatured,
         ...(imagePath && { image: imagePath }),
       })
       .where(eq(properties.id, propertyId));

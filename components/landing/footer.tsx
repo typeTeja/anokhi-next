@@ -50,6 +50,7 @@ export function LandingFooter() {
         <div className="space-y-6">
           <h4 className="text-lg font-bold">Contact Info</h4>
           <ul className="space-y-4 text-gray-400 text-sm">
+            <p className="text-md font-bold ">Head Office</p>
             <li className="flex items-start gap-3">
               <MapPin className="size-5 text-primary shrink-0" />
               <span>Hyderabad, Telangana, India</span>
@@ -60,21 +61,21 @@ export function LandingFooter() {
                 <span>+91 99 59 59 2888</span>
               </Link>
             </li>
-           
+
             <li className="flex items-start gap-3">
               <MapPin className="size-5 text-primary shrink-0" />
               <span>Banglore, Karnataka, India</span>
             </li>
             <li className="flex items-center gap-3">
-             <Link href="tel:+919959592888" className="flex items-center gap-3">
-              <Phone className="size-5 text-primary shrink-0" />
-              <span>+91 99 59 59 2888</span>
-             </Link>
+              <Link href="tel:+919959592888" className="flex items-center gap-3">
+                <Phone className="size-5 text-primary shrink-0" />
+                <span>+91 7625 037 048</span>
+              </Link>
             </li>
             <li className="flex items-center gap-3">
-             <Link href="mailto:info@anokhihomes.com" className="flex items-center gap-3 hover:underline">
-              <Mail className="size-5 text-primary shrink-0" />
-              <span>info@anokhihomes.com</span>
+              <Link href="mailto:info@anokhihomes.com" className="flex items-center gap-3 hover:underline">
+                <Mail className="size-5 text-primary shrink-0" />
+                <span>info@anokhihomes.com</span>
               </Link>
             </li>
           </ul>
