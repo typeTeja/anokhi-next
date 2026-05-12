@@ -41,9 +41,9 @@ export default function RootLayout({
     >
       <body suppressHydrationWarning>
 
-        <ThemeProvider>
+     
           <TooltipProvider>{children}</TooltipProvider>
-        </ThemeProvider>
+       
       </body>
 
     </html>
