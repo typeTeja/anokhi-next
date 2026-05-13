@@ -136,8 +136,8 @@ export function LandingHeader() {
           </div>
 
           {/* Mobile Toggle */}
-          <button 
-            className="lg:hidden p-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors" 
+          <button
+            className="lg:hidden p-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -163,7 +163,7 @@ export function LandingHeader() {
               ))}
             </div>
 
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <div className="text-primary text-xs font-black tracking-[0.2em] border-b border-primary/10 pb-2">Locations</div>
               {Object.entries(navData.locations).map(([city, areas]) => (
                 <div key={city} className="space-y-2">
@@ -175,8 +175,8 @@ export function LandingHeader() {
                   ))}
                 </div>
               ))}
-            </div>
-
+            </div> */}
+            <Link href="/properties" className="hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>All Projects</Link>
             <Link href="/blog" className="hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
             <Link href="/gallery" className="hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>Gallery</Link>
             <Link href="/contact" className="hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>Contact Us</Link>
