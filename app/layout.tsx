@@ -39,11 +39,16 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, playfairDisplayHeading.variable)}
     >
-      <body suppressHydrationWarning>
+      <body>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="light" 
+          enableSystem
+          disableTransitionOnChange
+        >  
           <TooltipProvider>{children}</TooltipProvider>
-       
+        </ThemeProvider>
       </body>
-
     </html>
   )
 }

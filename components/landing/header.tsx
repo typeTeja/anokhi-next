@@ -83,7 +83,7 @@ export function LandingHeader() {
                 Locations <ChevronDown className="size-4" />
               </button>
               <div className={cn(
-                "absolute top-full md:-left-180 w-max min-w-[600px] max-w-[90vw] bg-white border border-border shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2.5rem] p-10 transition-all duration-500 opacity-0 invisible translate-y-4 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-[110]"
+                "absolute top-full md:-left-180 w-max min-w-[600px] max-w-[90vw] bg-white border border-border shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2.5rem] p-6 transition-all duration-500 opacity-0 invisible translate-y-4 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-[110]"
               )}>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
                   {Object.entries(navData.locations).map(([city, areas]) => {
@@ -136,15 +136,19 @@ export function LandingHeader() {
           </div>
 
           {/* Mobile Toggle */}
-          <button className="lg:hidden p-2 rounded-lg bg-primary/5 text-black" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button 
+            className="lg:hidden p-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
             {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         <div className={cn(
-          "lg:hidden fixed inset-x-0 top-[100%] h-[calc(100vh-100%)] bg-white z-[90] overflow-y-auto transition-all duration-500 ease-in-out border-t border-border",
-          mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
+          "lg:hidden absolute inset-x-0 top-full h-[calc(100vh-70px)] bg-white z-[90] overflow-y-auto transition-all duration-500 ease-in-out border-t border-border shadow-xl",
+          mobileMenuOpen ? "translate-y-0 opacity-100 visible" : "-translate-y-4 opacity-0 invisible pointer-events-none"
         )}>
           <div className="flex flex-col p-8 space-y-6 font-bold uppercase tracking-widest text-sm text-black">
             <Link href="/" className="hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>

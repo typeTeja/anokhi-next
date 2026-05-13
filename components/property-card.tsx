@@ -135,7 +135,7 @@ export default function PropertyCard({ property }: { property: Property }) {
         <CardFooter className=" shrink-0 mt-auto flex items-center">
           <Button 
             onClick={() => setIsModalOpen(true)}
-            className="w-[50%] font-black h-12 bg-primary hover:bg-primary/90 text-accent shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all rounded-[1.5rem] text-md gap-3"
+            className="w-[100%] md:w-[50%] font-black h-12 bg-primary hover:bg-primary/90 text-accent shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all rounded-[1.5rem] text-md gap-3"
           >
             Express Interest
           </Button>

@@ -19,15 +19,15 @@ import {
 } from 'lucide-react';
 
 interface SearchFiltersProps {
-  initialCities: string[];
-  initialAreas: string[];
-  initialTypes: string[];
+  allProperties: Array<{
+    city: string | null;
+    area: string | null;
+    type: string | null;
+  }>;
 }
 
 export default function SearchFilters({
-  initialCities = [],
-  initialAreas = [],
-  initialTypes = []
+  allProperties = []
 }: SearchFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -39,6 +39,19 @@ export default function SearchFilters({
 
   const [searchValue, setSearchValue] = useState(searchParam);
 
+  // Derive filter options
+  const cities = Array.from(new Set(allProperties.map(p => p.city).filter((c): c is string => !!c))).sort();
+
+  // Filter areas based on selected city
+  const availableAreas = Array.from(new Set(
+    allProperties
+      .filter(p => !city || city === 'all' || p.city === city)
+      .map(p => p.area)
+      .filter((a): a is string => !!a)
+  )).sort();
+
+  const types = Array.from(new Set(allProperties.map(p => p.type).filter((t): t is string => !!t))).sort();
+
   useEffect(() => {
     setSearchValue(searchParam);
   }, [searchParam]);
@@ -48,6 +61,10 @@ export default function SearchFilters({
       if (searchValue === searchParam) return;
 
       const params = new URLSearchParams(searchParams.toString());
+
+      // Reset page to 1 when search changes
+      params.delete('page');
+
       if (searchValue.trim()) {
         params.set('search', searchValue);
       } else {
@@ -63,8 +80,15 @@ export default function SearchFilters({
   const updateFilter = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
+    // Reset page to 1 when filter changes
+    params.delete('page');
+
     if (value && value !== 'all') {
       params.set(key, value);
+      // If city changes, reset area
+      if (key === 'city') {
+        params.delete('area');
+      }
     } else {
       params.delete(key);
     }
@@ -80,8 +104,8 @@ export default function SearchFilters({
   const hasFilters = city || area || type || searchParam;
 
   return (
-    <div className="w-full max-w-6xl mx-auto -mt-16 relative z-30 px-4">
-      <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2.5rem] p-4 md:p-6 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row items-stretch lg:items-end gap-6">
+    <div className="w-full max-w-6xl mx-auto -mt-44 relative z-30 px-4">
+      <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-xl p-4 md:p-6 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row items-stretch lg:items-end gap-6">
 
         {/* Filters */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -103,7 +127,7 @@ export default function SearchFilters({
 
               <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-[var(--radix-select-trigger-width)] overflow-y-auto">
                 <SelectItem value="all">All Cities</SelectItem>
-                {initialCities.map(c => (
+                {cities.map(c => (
                   <SelectItem key={c} value={c}>{c}</SelectItem>
                 ))}
               </SelectContent>
@@ -125,9 +149,9 @@ export default function SearchFilters({
                 <SelectValue placeholder="All Areas" />
               </SelectTrigger>
 
-              <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-[var(--radix-select-trigger-width)] overflow-y-auto">
+              <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-50 overflow-y-auto">
                 <SelectItem value="all">All Areas</SelectItem>
-                {initialAreas.map(a => (
+                {availableAreas.map(a => (
                   <SelectItem key={a} value={a}>{a}</SelectItem>
                 ))}
               </SelectContent>
@@ -151,7 +175,7 @@ export default function SearchFilters({
 
               <SelectContent position="popper" sideOffset={4} className="max-h-[300px]  overflow-y-auto">
                 <SelectItem value="all">All Categories</SelectItem>
-                {initialTypes.map(t => (
+                {types.map(t => (
                   <SelectItem key={t} value={t}>{t}</SelectItem>
                 ))}
               </SelectContent>

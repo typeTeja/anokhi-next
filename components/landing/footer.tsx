@@ -61,7 +61,8 @@ export function LandingFooter() {
                 <span>+91 99 59 59 2888</span>
               </Link>
             </li>
-
+              
+              <p className="text-md font-bold ">Branch Office</p>
             <li className="flex items-start gap-3">
               <MapPin className="size-5 text-primary shrink-0" />
               <span>Banglore, Karnataka, India</span>

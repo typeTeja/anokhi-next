@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 import { properties, propertyHighlights } from '@/lib/schema';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
-import { desc, eq, and, like } from 'drizzle-orm';
+import { desc, eq, and, like, sql } from 'drizzle-orm';
 
 export async function GET(req: NextRequest) {
   try {
@@ -13,32 +13,56 @@ export async function GET(req: NextRequest) {
     const type = searchParams.get('type');
     const search = searchParams.get('search');
 
+    // Pagination parameters
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '9');
+    const offset = (page - 1) * limit;
+
     const filters = [];
     if (city) filters.push(eq(properties.city, city));
     if (area) filters.push(eq(properties.area, area));
     if (type) filters.push(eq(properties.type, type));
     if (search) filters.push(like(properties.title, `%${search}%`));
 
+    // Get paginated properties
     const props = await db.select()
       .from(properties)
       .where(filters.length > 0 ? and(...filters) : undefined)
-      .orderBy(desc(properties.createdAt));
+      .orderBy(desc(properties.createdAt))
+      .limit(limit)
+      .offset(offset);
+
+    // Get total count for pagination
+    const countResult = await db.select({ count: sql<number>`count(*)` })
+      .from(properties)
+      .where(filters.length > 0 ? and(...filters) : undefined);
+
+    const total = Number(countResult[0].count);
 
     // Fetch highlights separately to avoid MariaDB incompatibility with LATERAL JOIN
-    const allProperties = await Promise.all(
+    const paginatedProperties = await Promise.all(
       props.map(async (prop) => {
         const highlights = await db.select({
           label: propertyHighlights.label,
           value: propertyHighlights.value,
         })
-        .from(propertyHighlights)
-        .where(eq(propertyHighlights.propertyId, prop.id));
-        
+          .from(propertyHighlights)
+          .where(eq(propertyHighlights.propertyId, prop.id));
+
         return { ...prop, highlights };
       })
     );
 
-    const response = NextResponse.json(allProperties);
+    const response = NextResponse.json({
+      properties: paginatedProperties,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
+    });
+
     // Add caching headers for static generation
     response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
     return response;

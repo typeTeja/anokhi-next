@@ -47,14 +47,14 @@ export default function PropertiesManagementPage() {
     if (showLoading) setLoading(true)
 
     try {
-      const response = await fetch("/api/properties")
+      const response = await fetch("/api/properties?limit=100")
 
       if (!response.ok) {
         throw new Error("Failed to fetch properties")
       }
 
       const data = await response.json()
-      setProperties(data)
+      setProperties(data.properties || [])
     } catch (error: unknown) {
       const message =
         error instanceof Error
