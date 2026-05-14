@@ -30,13 +30,16 @@ export function LandingAbout() {
           </div>
           <div className="space-y-4 text-gray-600 leading-relaxed">
             <p>
-              Founded with a vision to redefine the real estate experience, Anokhi Homes is committed to delivering excellence through innovation and integrity. We specialize in creating high-quality residential and commercial spaces that harmonize with your lifestyle.
+              Founded with a vision to redefine the real estate experience, Anokhi Homes is committed to delivering excellence through innovation and integrity. We specialize in creating high-quality residential and premium villas that harmonize with your unique lifestyle.
             </p>
             <p>
-              With years of expertise in the industry, we have successfully completed numerous projects, earning the trust of thousands of happy homeowners. Our approach is centered on understanding our clients&apos; needs and exceeding their expectations at every step of the journey.
+              With years of industry expertise and the trust of thousands of happy homeowners, we are proud to announce our strategic expansion into Bengaluru. By extending our presence to Bengaluru, we are bringing our signature commitment to quality and client-focused service to one of India’s most dynamic urban landscapes.
             </p>
             <p>
-              From meticulously planned layouts to premium finishes, every Anokhi project is a masterpiece of design and craftsmanship. We invite you to explore our world and find your perfect space with us.
+              Our approach remains centred on understanding our clients' needs and exceeding their expectations at every step of the journey. From meticulously planned layouts to premium finishes, every Anokhi project is a masterpiece of design and craftsmanship.
+            </p>
+             <p>
+             We invite you to explore our world and find your perfect space with us as we continue to grow and innovate.
             </p>
           </div>
         </div>
