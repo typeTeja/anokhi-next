@@ -15,7 +15,7 @@ export const properties = mysqlTable('properties', {
 export const propertyHighlights = mysqlTable('property_highlights', {
   id: serial('id').primaryKey(),
   propertyId: int('property_id').references(() => properties.id),
-  label: varchar('label', { length: 100 }).notNull(),
+  label: varchar('label', { length: 255 }).notNull(),
   value: varchar('value', { length: 255 }).notNull(),
 });
 
@@ -46,3 +46,13 @@ export const leadsRelations = relations(leads, ({ one }) => ({
     references: [properties.id],
   }),
 }));
+
+export const contactLeads = mysqlTable('contact_leads', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  phone: varchar('phone', { length: 20 }).notNull(),
+  inquiryType: varchar('inquiry_type', { length: 100 }),
+  message: varchar('message', { length: 1000 }),
+  createdAt: timestamp('created_at').defaultNow(),
+});

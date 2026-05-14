@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, Send } from 'lucide-react';
 import { toast } from 'sonner';
+import ThankYouPopup from './thank-you-popup';
 
 interface LeadModalProps {
   isOpen: boolean;
@@ -31,6 +32,7 @@ export default function LeadModal({ isOpen, onClose, property }: LeadModalProps)
     email: '',
     phone: '',
   });
+  const [showThankYou, setShowThankYou] = useState(false);
 
   if (!property) return null;
 
@@ -52,9 +54,8 @@ export default function LeadModal({ isOpen, onClose, property }: LeadModalProps)
         throw new Error('Failed to submit lead');
       }
 
-      toast.success('Thank you! Our team will contact you shortly.');
       setFormData({ name: '', email: '', phone: '' });
-      onClose();
+      setShowThankYou(true);
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Something went wrong';
       toast.error(errorMessage);
@@ -62,6 +63,13 @@ export default function LeadModal({ isOpen, onClose, property }: LeadModalProps)
       setLoading(false);
     }
   };
+
+  if (showThankYou) {
+    return <ThankYouPopup isOpen={showThankYou} onClose={() => {
+      setShowThankYou(false);
+      onClose();
+    }} />;
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

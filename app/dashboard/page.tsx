@@ -3,15 +3,16 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { db } from '@/lib/db';
-import { properties, leads } from '@/lib/schema';
+import { properties, leads, contactLeads } from '@/lib/schema';
 import { desc, eq } from 'drizzle-orm';
 
 async function getDashboardStats() {
   try {
     // Direct database access for static generation
-    const [propertyCount, leadCount, recentLeadsData] = await Promise.all([
+    const [propertyCount, leadCount, contactLeadCount, recentLeadsData] = await Promise.all([
       db.select({ count: properties.id }).from(properties),
       db.select({ count: leads.id }).from(leads),
+      db.select({ count: contactLeads.id }).from(contactLeads),
       db.select({
         id: leads.id,
         propertyTitle: properties.title,
@@ -28,7 +29,7 @@ async function getDashboardStats() {
 
     const recentLeads = recentLeadsData.map((lead: any) => ({
       id: lead.id,
-      propertyTitle: lead.propertyTitle || 'Unknown Property',
+      propertyTitle: lead.propertyTitle || 'Project Inquiry',
       name: lead.name,
       email: lead.email,
       phone: lead.phone,
@@ -37,7 +38,7 @@ async function getDashboardStats() {
 
     return {
       totalProperties: propertyCount[0]?.count || 0,
-      totalLeads: leadCount[0]?.count || 0,
+      totalLeads: (leadCount[0]?.count || 0) + (contactLeadCount[0]?.count || 0),
       recentLeads
     };
   } catch (error: unknown) {
@@ -46,7 +47,7 @@ async function getDashboardStats() {
   }
 }
 
-export const revalidate = 3600; // Revalidate every hour
+export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
   const stats = await getDashboardStats();

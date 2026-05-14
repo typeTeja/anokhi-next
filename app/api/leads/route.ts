@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { leads } from '@/lib/schema';
+import { leads, properties } from '@/lib/schema';
+import { pushToCRM } from '@/lib/crm';
+import { eq } from 'drizzle-orm';
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,6 +19,21 @@ export async function POST(req: NextRequest) {
       email,
       phone,
     });
+
+    // Get property details for CRM
+    const property = await db.select({ title: properties.title })
+      .from(properties)
+      .where(eq(properties.id, Number(propertyId)))
+      .limit(1);
+
+    // Push to CRM (Background task)
+    pushToCRM({
+      name,
+      email,
+      phone,
+      type: 'project',
+      projectName: property[0]?.title || 'Unknown Property',
+    }).catch(err => console.error('Background CRM push failed:', err));
 
     return NextResponse.json({ message: 'Lead saved successfully' }, { status: 201 });
   } catch (error: unknown) {
